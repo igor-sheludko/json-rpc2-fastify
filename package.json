@@ -1,0 +1,21 @@
+{
+  "dependencies": {
+    "fastify": "^4.15.0"
+  },
+  "name": "json-rpc-fastify",
+  "version": "0.1.1",
+  "description": "Simple json-rpc server over fastify and client over fetch for Node.js 18+",
+  "main": "json-rpc.js",
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": {
+    "name": "Igor Sheludko"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/igor-sheludko/json-rpc-fastify.git"
+  },
+  "license": "MIT"
+}
