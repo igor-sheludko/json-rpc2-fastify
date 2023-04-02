@@ -256,7 +256,6 @@ class JsonRpcClient {
             this.url,
             batch
         )
-      //  return 'Not implemented yet';
     }
 }
 
