@@ -42,4 +42,4 @@ Code sample:
 
     server.start();
 
-The **ping** function just return an object with **message** to greet `${name}`
+The **ping** function just return an object with **message** to greet `${params.name}`
