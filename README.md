@@ -11,10 +11,10 @@ Please see package usage examples in demo subdir.
 First import JsonRpcServer class and call the constructor with options JS object.
 
 The options are: 
-* port - the TCP-port number on which the HTTP-server will run, default is 4040 (if you do not set it when initializing the server).
-* entryPoint - the path where the server will listen for JSON-RPC requests via HTTP.
-* logger - request logging option that is passed to fastify server.
-* methods - an object whose properties define functions that can be called remotely via JSON-RPC protocol.
+* **port** - the TCP-port number on which the HTTP-server will run, default is 4040 (if you do not set it when initializing the server).
+* **entryPoint** - the path where the server will listen for JSON-RPC requests via HTTP.
+* **logger** - request logging option that is passed to fastify server.
+* **methods** - an object whose properties define functions that can be called remotely via JSON-RPC protocol.
 
 Code sample:
 
