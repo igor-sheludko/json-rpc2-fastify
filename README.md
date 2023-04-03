@@ -9,6 +9,7 @@ Please see package usage examples in demo subdir.
 # Server
 
 First import JsonRpcServer class and call the constructor with options JS object.
+
 The options are: 
 * port - the TCP-port number on which the HTTP-server will run, default is 4040 (if you do not set it when initializing the server).
 * entryPoint - the path where the server will listen for JSON-RPC requests via HTTP.
