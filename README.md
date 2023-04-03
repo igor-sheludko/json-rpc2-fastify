@@ -26,7 +26,7 @@ Code sample:
         entryPoint: 'jrpc',
         methods: {
             ping: async function (params) {
-                const name = params?.name;
+                const name = params?.name || 'Stranger';
                 return {
                     message: `Pong dear ${name}`,
                 }
