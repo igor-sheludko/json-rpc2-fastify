@@ -3,7 +3,7 @@
     "fastify": "^4.15.0"
   },
   "name": "json-rpc2-fastify",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "description": "Simple json-rpc server over fastify and client over fetch for Node.js 18+",
   "keywords": [
     "json-rpc",
@@ -11,7 +11,9 @@
     "json-rpc v.2",
     "jsonrpc",
     "json-rpc fastify",
-    "json-rpc http"
+    "json-rpc http",
+    "json rpc",
+    "json rpc 2.0"
   ],
   "engines": {
     "node": ">= 18"

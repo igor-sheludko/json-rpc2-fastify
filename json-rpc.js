@@ -17,8 +17,31 @@ class JsonRpcServer {
         this.serverOptions = serverOptions;
 
         this.fastify = Fastify({ logger: serverOptions.logger });
-        this.fastify.post(serverOptions.entryPoint, this.router);
-        this.fastify.get(serverOptions.entryPoint, this.httpGet);
+
+        const bodyValidator = {
+            body: {
+                type: 'object',
+                required: ['jsonrpc', 'method', ],
+                properties: {
+                    jsonrpc: { type: 'string', enum: ['2.0'] },
+                    method: { type: 'string' },
+                    params: { type: 'object' },
+                    id: { type: 'string' },
+                },
+            }
+        }
+
+        this.fastify.get(
+            serverOptions.entryPoint, 
+            this.httpGet
+        );
+
+        this.fastify.post(
+            serverOptions.entryPoint, 
+            { schema: bodyValidator }, 
+            this.router
+        );
+        
         this.fastify.serverOptions = serverOptions;
         this.fastify.callRpc = this.callRpc;
     } 
@@ -118,14 +141,6 @@ const JsonRpcErrorTypes = {
     ERROR_SERVER_SPECIFIC_ERROR: -32050,
 }
 
-/*
-interface IJsonRpcError {
-    code: number; // JsonRpcErrorTypes
-    message: string; //
-    data: {}
-}
-*/
-
 //
 // JSON-RPC client over fetch
 //
@@ -155,6 +170,9 @@ async function fetchJson(
         ok = response.ok;
         if (ok) {
             data = await response.json();
+        }
+        else {
+            error = await response.json();
         }
     }
     catch(err) {
@@ -263,4 +281,5 @@ module.exports.JsonRpcServer = JsonRpcServer;
 module.exports.JsonRpcClient = JsonRpcClient;
 module.exports.fetchJsonRpc = fetchJsonRpc;
 module.exports.fetchJsonRpcBatch = fetchJsonRpcBatch;
+module.exports.fetchJson = fetchJson;
 
