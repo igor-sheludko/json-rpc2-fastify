@@ -13,10 +13,17 @@ class JsonRpcServer {
         serverOptions.logger = options.logger || false;
         serverOptions.entryPoint = `/${options.entryPoint || 'json-rpc'}`;
         serverOptions.port = options.port || 4040;
-
-        this.serverOptions = serverOptions;
+        serverOptions.repeatRequestInResponse = options.repeatRequestInResponse || false;
 
         this.fastify = Fastify({ logger: serverOptions.logger });
+
+        if (!serverOptions.methods) {
+            console.log(`\nWARNING! "options.methods" value not set!\n`);
+        }
+
+        this.serverOptions = serverOptions;
+        this.fastify.serverOptions = serverOptions;
+        this.fastify.callRpc = this.callRpc;
 
         const bodyValidator = {
             body: {
@@ -41,9 +48,6 @@ class JsonRpcServer {
             { schema: bodyValidator }, 
             this.router
         );
-        
-        this.fastify.serverOptions = serverOptions;
-        this.fastify.callRpc = this.callRpc;
     } 
 
     async start() {
@@ -97,7 +101,7 @@ class JsonRpcServer {
         let result;
         const errorMessage = `JSON-RPC server method '${method}' is not found`;
 
-        const serverMethods = this.serverOptions?.methods;
+        const serverMethods = this.serverOptions?.methods || {};
         const methodToCall = serverMethods[method];
 
         if (methodToCall) {
@@ -110,15 +114,25 @@ class JsonRpcServer {
             }
         }
 
-        return {
+        let response = {
             jsonrpc: '2.0',
             result,
             error,
             id,
-            // additional, not required
-            method,
-            params,
         }
+
+        if (this.serverOptions?.repeatRequestInResponse) {
+            response = {
+                ...response,
+                // additional, not required
+                request: {
+                    method,
+                    params,
+                }
+            }
+        } 
+
+        return response;
     }
 }
 

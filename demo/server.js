@@ -7,6 +7,7 @@ const server = new JsonRpcServer({
     logger: true,
     port: 4040,
     entryPoint: 'jrpc',
+    repeatRequestInResponse: true,
     methods: {
         ping: async function (params) {
             const name = params?.name || 'Stranger';
