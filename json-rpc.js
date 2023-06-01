@@ -1,5 +1,5 @@
 //
-// JSON-RPC server and client over Fastify
+// JSON-RPC server over Fastify and client over fetch
 //
 // https://www.jsonrpc.org/specification
 //
